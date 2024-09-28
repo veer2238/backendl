@@ -16,6 +16,7 @@ mongoose
 // importing contact routes
 app.use('/', require('./routes/contactroute'))
 app.use('/', require('./routes/passportroute'))
+app.use('/', require('./routes/Inquiryroute'))
 
 app.post('/otpverify', (req, res) => {
   const { mobileNumber } = req.body

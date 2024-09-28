@@ -1,33 +1,28 @@
 const mongoose = require('mongoose')
 
-const passportSchema = new mongoose.Schema({
-    birthPlace: {
+const inquirySchema = new mongoose.Schema({
+    name: {
         type: String,
         require: true,
         trim: true,
     },
-    employeementType: {
+    mobileNo: {
         type: String,
         require: true,
         trim: true,
     },
-    proffession: {
+    visaType: {
         type: String,
         require: true,
         trim: true,
     },
-    education: {
+    country: {
         type: String,
         require: true,
         trim: true,
     },
-    policeStation: {
-        type: String,
-        require: true,
-        trim: true,
-    }
 
 });
 
-const PassportVerify = mongoose.model('passportVerify', passportSchema)
-module.exports = PassportVerify
+const Inquiry = mongoose.model('inquiry', inquirySchema)
+module.exports = Inquiry

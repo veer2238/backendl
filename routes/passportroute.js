@@ -26,7 +26,7 @@ router.post('/passportverify', [
         const passportData = new PassportVerify(req.body)
         await passportData.save();
         success = true
-        res.status(200).send({ success, message: "Passport data save successfully", passportData })
+        return res.status(200).send({ success, message: "Passport data save successfully", passportData })
 
     } catch (error) {
         console.error("Error when passportverify :", error);

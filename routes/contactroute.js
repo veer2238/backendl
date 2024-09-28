@@ -5,19 +5,9 @@ require('dotenv').config()
 const nodemailer = require('nodemailer');
 const { body, validationResult } = require('express-validator');
 
-router.post('/contact', [
-    body('name', 'Name is required').notEmpty(),
-    body('email', 'Email is required').notEmpty(),
-    body('message', 'Message require atleast 5 characters').notEmpty().isLength({ min: 5 }),
-
-], async (req, res) => {
+router.post('/contact', async (req, res) => {
     try {
         const { name, email, message } = req.body
-
-        const errors = validationResult(req);
-        if (!errors.isEmpty()) {
-            return res.status(400).json({ errors: errors.array() });
-        }
 
         const exist = await Contact.findOne({ email, message })
         if (exist) {
@@ -56,6 +46,21 @@ router.post('/contact', [
         console.error("Error creating contact:", error);
         res.status(500).send("Internal server error occurred");
     }
+})
+router.get('/contacts', async (req, res) => {
+
+    try {
+        const contacts = await Contact.find()
+        if (!contacts) {
+            return res.status(404).send("Not found")
+        }
+        return res.status(200).send(contacts)
+
+    } catch (error) {
+        console.error(error)
+        res.status(500).send({ message: "Internal Server Error" })
+    }
+
 })
 
 module.exports = router
